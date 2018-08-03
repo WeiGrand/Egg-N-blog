@@ -2,7 +2,11 @@
  * Created by heweiguang on 2018/8/2.
  */
 
+const fs = require('fs');
+const path = require('path');
 const Controller = require('egg').Controller;
+const pump = require('mz-modules/pump');
+const sha1 = require('sha1');
 
 class SignUpController extends Controller {
   async index() {
@@ -11,8 +15,10 @@ class SignUpController extends Controller {
   }
 
   async submit() {
-    const stream = await this.ctx.getFileStream();
-    console.log(stream);
+    const ctx = this.ctx;
+
+    const stream = await ctx.getFileStreamWithoutFileNotFoundError();
+
     //FileStream {
     //   _readableState:
     //    ReadableState {
@@ -58,7 +64,87 @@ class SignUpController extends Controller {
     //      repassword: '123123',
     //      gender: 'm' } }
 
+    const {
+      fields: {
+        name,
+        password,
+        rePassword,
+        gender,
+        bio
+      }
+    } = stream;
 
+    let error = '';
+
+    if (!(name.length >= 1 && name.length <= 10)) {
+      error = '名字请限制在 1-10 个字符';
+    } else if (['m', 'f', 'x'].indexOf(gender) === -1) {
+      error = '性别只能是 m、f 或 x';
+    } else if (!(bio.length >= 1 && bio.length <= 300)) {
+      error = '个人简介请限制在 1-30 个字符';
+    } else if (!stream.filename) {
+      error = '缺少头像';
+    } else if (password.length < 6) {
+      error = '密码至少 6 个字符';
+    } else if (password !== rePassword) {
+      error = '两次输入密码不一致';
+    }
+
+    if (error !== '') {
+      this.ctx.flash = {
+        error
+      };
+
+      return ctx.redirect('/signUp');
+    }
+
+    const filename = encodeURIComponent(name) + '_' + Date.now() + path.extname(stream.filename).toLowerCase();
+    const target = path.join(this.config.baseDir, 'app/public/img', filename);
+    const writeStream = fs.createWriteStream(target);
+
+    const avatar = path.join('/public/img', filename);
+
+    await pump(stream, writeStream);
+
+    const res = await ctx.service.user.create({
+      name,
+      password: sha1(password),
+      gender,
+      bio,
+      avatar
+    });
+
+    if (res['success']) {
+      const {
+        data
+      } = res;
+
+      delete data.password;
+
+      ctx.session.user = data;
+
+      ctx.flash = {
+        success: '注册成功'
+      }
+
+      return ctx.redirect('/');
+    } else {
+
+      // 删掉上传了的头像
+      fs.unlink(target);
+
+      const {
+        message
+      } = res;
+
+      if (message.match('duplicate key')) {
+        ctx.flash = {
+          error: '用户名已被占用'
+        }
+      }
+
+      return ctx.redirect('/signUp');
+    }
   }
 }
 

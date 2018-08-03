@@ -9,7 +9,8 @@ module.exports = appInfo => {
   // add your config here
   // 这里配置的中间件都是全局的，也就是这里添加的在每次请求都会经过，如果只想针对单个路由生效，直接在 router.js 中使用
   config.middleware = [
-    // 'checkLogin'
+    'flash',
+    'locals'
   ];
 
   // 模版引擎
