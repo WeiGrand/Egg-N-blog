@@ -35,7 +35,7 @@ class SignInController extends Controller {
       return ctx.redirect('/signIn');
     }
 
-    const user = await ctx.service.user.findOne({
+    let user = await ctx.service.user.findOne({
       name
     });
 
@@ -59,7 +59,17 @@ class SignInController extends Controller {
       success: '登录成功'
     };
 
+    // mongoose 返回的并不是 plain JavaScript object 不能直接增加或删除属性
+    // 使用 toObject 将其转化为 plain JavaScript object
+    user = user.toObject();
+
     delete user.password;
+
+    // 存一份中文
+    user.genderString = ctx.helper.renderGender(user.gender);
+
+    console.log(user);
+    console.log(user.genderString);
 
     ctx.session.user = user;
 

@@ -19,7 +19,7 @@ module.exports = appInfo => {
     defaultExtension: '.hbs',
     mapping: {
       '.hbs': 'handlebars',
-    },
+    }
   };
 
   config.mongoose = {

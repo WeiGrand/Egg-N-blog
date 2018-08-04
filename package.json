@@ -9,6 +9,7 @@
     "egg-scripts": "^2.5.0",
     "egg-view-handlebars": "^2.0.1",
     "koa-flash": "^1.0.0",
+    "marked": "^0.4.0",
     "sha1": "^1.1.1"
   },
   "devDependencies": {
