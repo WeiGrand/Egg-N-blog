@@ -1,14 +1,8 @@
 # Egg-blog
 
-Bulid N-blog using egg.js
+使用 egg.js 重构 [N-blog](https://github.com/WeiGrand/N-blog)
 
-## QuickStart
-
-<!-- add docs here for user -->
-
-see [egg docs][egg] for more detail.
-
-### Development
+## 运行本项目
 
 ```bash
 $ npm i
@@ -16,18 +10,12 @@ $ npm run dev
 $ open http://localhost:7001/
 ```
 
-### Deploy
+## 部署到 `Heroku`
 
-```bash
-$ npm start
-$ npm stop
-```
+[在线地址](https://young-peak-44230.herokuapp.com/)
 
-### npm scripts
+参考：
 
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
+[Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
 
-
-[egg]: https://eggjs.org
+[应用部署](https://eggjs.org/zh-cn/core/deployment.html)

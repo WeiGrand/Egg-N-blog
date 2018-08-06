@@ -1,7 +1,7 @@
 {
   "name": "Egg-blog",
   "version": "1.0.0",
-  "description": "Bulid N-blog using egg.js",
+  "description": "Build N-blog using egg.js",
   "private": true,
   "dependencies": {
     "egg": "^2.2.1",
