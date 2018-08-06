@@ -24,7 +24,7 @@ module.exports = appInfo => {
 
   config.mongoose = {
     client: {
-      url: 'mongodb://localhost:27017/egg-blog',
+      url: 'mongodb://22Infinite:mlabtest666@ds149511.mlab.com:49511/egg-blog',
       options: {},
     },
   };
