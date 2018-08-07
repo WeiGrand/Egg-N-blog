@@ -1,6 +1,6 @@
 # Egg-blog
 
-使用 egg.js 重构 [N-blog](https://github.com/WeiGrand/N-blog)
+使用 [egg.js](https://eggjs.org/) 重构 [N-blog](https://github.com/WeiGrand/N-blog)
 
 ## 运行本项目
 
@@ -16,6 +16,6 @@ $ open http://localhost:7001/
 
 参考：
 
-[Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
 
-[应用部署](https://eggjs.org/zh-cn/core/deployment.html)
+- [应用部署](https://eggjs.org/zh-cn/core/deployment.html)

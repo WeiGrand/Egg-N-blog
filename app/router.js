@@ -12,6 +12,8 @@ module.exports = app => {
   // 首页
   router.get('/', controller.posts.index);
 
+  router.get('/posts', controller.posts.postsRender);
+
   // 发表文章页
   router.get('/posts/create', checkLogin, controller.posts.createRender);
 

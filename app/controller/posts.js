@@ -7,6 +7,10 @@ const Controller = require('egg').Controller;
 
 class PostsController extends Controller {
   async index() {
+    this.ctx.redirect('/posts');
+  }
+
+  async postsRender() {
     const ctx = this.ctx;
 
     const query = {};
